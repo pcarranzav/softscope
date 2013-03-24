@@ -5,7 +5,7 @@
 
 using namespace std;
 
-FPGA::FPGA(Configuration& configuration, State& state, Samples& samples) : configuration(configuration), state(state), samples(samples)
+FPGA::FPGA(Configuration& configuration, State& state, Samples& samples, MiniRegs& miniRegs) : configuration(configuration), state(state), samples(samples), miniSPI(miniRegs)
 {
 	srand(time(NULL));
 }

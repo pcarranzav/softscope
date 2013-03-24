@@ -4,6 +4,8 @@
 #include <Configuration.hpp>
 #include <State.hpp>
 #include <Samples.hpp>
+#include <MiniSPI.hpp>
+#include <MiniRegs.hpp>
 
 class FPGA
 {
@@ -11,9 +13,10 @@ class FPGA
 		Configuration& configuration;
 		State& state;
 		Samples& samples;
+		MiniSPI miniSPI;
 
 	public:
-		FPGA(Configuration& configuration, State& state, Samples& samples);
+		FPGA(Configuration& configuration, State& state, Samples& samples, MiniRegs& miniRegs);
 		void fetchSamples(void);
 	
 	private:
