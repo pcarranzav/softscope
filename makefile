@@ -14,7 +14,7 @@ SOURCE = src
 TARGET = target
 OBJ = $(TARGET)/obj
 EXECUTABLE = $(TARGET)/softscope
-OBJECTS = $(addprefix $(OBJ)/, $(addsuffix .o, main Configuration State Samples Measurer Mathematician Touch FPGA Display MiniFB MiniInput))
+OBJECTS = $(addprefix $(OBJ)/, $(addsuffix .o, main Configuration State Samples Measurer Mathematician Touch FPGA Display MiniFB MiniInput MiniRegs))
 LIBRARIES = $(addprefix -l, fftw3 pthread)
 
 # LINKING
@@ -57,6 +57,9 @@ $(OBJ)/MiniFB.o : $(SOURCE)/MiniFB.cpp
 $(OBJ)/MiniInput.o : $(SOURCE)/MiniInput.cpp
 	$(COMPILER) $(COMPILERPARAMS) $(SOURCE)/MiniInput.cpp $(INCLUDE) $(SOURCE) $(OUTPUT) $(OBJ)/MiniInput.o
 
+$(OBJ)/MiniRegs.o : $(SOURCE)/MiniRegs.cpp
+	$(COMPILER) $(COMPILERPARAMS) $(SOURCE)/MiniRegs.cpp $(INCLUDE) $(SOURCE) $(OUTPUT) $(OBJ)/MiniRegs.o
+
 # SOURCES
 
 $(SOURCE)/main.cpp : $(SOURCE)/Configuration.hpp $(SOURCE)/State.hpp $(SOURCE)/Samples.hpp $(SOURCE)/Measurer.hpp $(SOURCE)/Mathematician.hpp $(SOURCE)/Touch.hpp $(SOURCE)/FPGA.hpp $(SOURCE)/Display.hpp $(SOURCE)/MiniFB.hpp
@@ -92,6 +95,9 @@ $(SOURCE)/MiniFB.cpp : $(SOURCE)/MiniFB.hpp
 $(SOURCE)/MiniInput.cpp : $(SOURCE)/MiniInput.hpp
 	$(TOUCH) $(SOURCE)/MiniInput.cpp
 
+$(SOURCE)/MiniRegs.cpp : $(SOURCE)/MiniRegs.hpp
+	$(TOUCH) $(SOURCE)/MiniRegs.cpp
+
 # HEADERS
 
 $(SOURCE)/Configuration.hpp :
@@ -123,6 +129,9 @@ $(SOURCE)/MiniFB.hpp :
 
 $(SOURCE)/MiniInput.hpp :
 	$(TOUCH) $(SOURCE)/MiniInput.hpp
+
+$(SOURCE)/MiniRegs.hpp :
+	$(TOUCH) $(SOURCE)/MiniRegs.hpp
 
 # MAKING DIRECTORIES
 
