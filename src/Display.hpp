@@ -7,6 +7,7 @@
 #include <Measurer.hpp>
 #include <Mathematician.hpp>
 #include <MiniFB.hpp>
+#include <MiniRegs.hpp>
 #include <string>
 #include <vector>
 
@@ -21,7 +22,7 @@ class Display
 		MiniFB miniFB;
 
 	public:
-		Display(Configuration& configuration, State& state, Samples& samples);
+		Display(Configuration& configuration, State& state, Samples& samples, MiniRegs& miniRegs);
 		void print(void);
 
 	private:

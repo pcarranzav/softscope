@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Display::Display(Configuration& configuration, State& state, Samples& samples) : configuration(configuration), state(state), samples(samples), measurer(configuration, state, samples), mathematician(configuration, state, samples), miniFB("/dev/fb0")
+Display::Display(Configuration& configuration, State& state, Samples& samples, MiniRegs& miniRegs) : configuration(configuration), state(state), samples(samples), measurer(configuration, state, samples), mathematician(configuration, state, samples), miniFB("/dev/fb0", miniRegs)
 {
 }
 

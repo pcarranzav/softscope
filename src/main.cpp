@@ -13,10 +13,10 @@ int main(int argc, char** argv)
 	Configuration configuration;
 	State state;
 	Samples samples;
-	MiniRegs miniRegs("/dev/mem", 0xFFFFFFFF, 0x0);
+	MiniRegs miniRegs("/dev/mem", 0x8000000, 0x80000000);
 	Touch touch(configuration, state, samples);
 	FPGA fpga(configuration, state, samples, miniRegs);
-	Display display(configuration, state, samples);
+	Display display(configuration, state, samples, miniRegs);
 	while(true)
 	{
 		touch.getInput();

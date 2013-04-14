@@ -11,7 +11,7 @@
 
 using namespace std;
 
-MiniFB::MiniFB(string fb)
+MiniFB::MiniFB(string fb, MiniRegs& miniRegs) : miniRegs(miniRegs)
 {
 	int fd = open(fb.data(), O_RDWR);
 	struct fb_var_screeninfo screeninfo;
@@ -40,6 +40,7 @@ MiniFB::MiniFB(string fb)
 	addCharacter(';');
 	addCharacter('=');
 	addCharacter('%');
+	initLCDIF();
 }
 
 MiniFB::~MiniFB()
@@ -244,5 +245,10 @@ void MiniFB::addCharacter(char character)
 		myFile.close();
 	}
 	characterMap[character] = pixels;
+}
+
+void MiniFB::initLCDIF(void)
+{
+	
 }
 

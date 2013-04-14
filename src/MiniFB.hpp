@@ -1,6 +1,7 @@
 #ifndef MINIFB_HPP
 #define MINIFB_HPP
 
+#include <MiniRegs.hpp>
 #include <string>
 #include <map>
 
@@ -12,9 +13,10 @@ class MiniFB
 		unsigned int* data;
 		unsigned int* buffer;
 		std::map<char, bool*> characterMap;
+		MiniRegs& miniRegs;
 
 	public:
-		MiniFB(std::string fb);
+		MiniFB(std::string fb, MiniRegs& miniRegs);
 		~MiniFB();
 		void clearScreen(void);
 		void updateScreen(void);
@@ -27,6 +29,7 @@ class MiniFB
 		int getTextWidth(std::string text);
 		int getTextHeight(std::string text);
 		int thinColor(int color, int times);
+		void initLCDIF(void);
 
 	private:
 		void addCharacter(char character);

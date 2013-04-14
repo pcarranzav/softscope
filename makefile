@@ -53,7 +53,7 @@ $(OBJ)/Display.o : $(SOURCE)/Display.cpp
 	$(COMPILER) $(COMPILERPARAMS) $(SOURCE)/Display.cpp $(INCLUDE) $(SOURCE) $(OUTPUT) $(OBJ)/Display.o
 
 $(OBJ)/MiniFB.o : $(SOURCE)/MiniFB.cpp
-	$(COMPILER) $(COMPILERPARAMS) $(SOURCE)/MiniFB.cpp $(INCLUDE) $(SOURCE) $(OUTPUT) $(OBJ)/MiniFB.o
+	$(COMPILER) $(COMPILERPARAMS) $(SOURCE)/MiniFB.cpp $(INCLUDE) $(SOURCE) $(INCLUDE) $(REGS) $(OUTPUT) $(OBJ)/MiniFB.o
 
 $(OBJ)/MiniInput.o : $(SOURCE)/MiniInput.cpp
 	$(COMPILER) $(COMPILERPARAMS) $(SOURCE)/MiniInput.cpp $(INCLUDE) $(SOURCE) $(OUTPUT) $(OBJ)/MiniInput.o
@@ -93,7 +93,7 @@ $(SOURCE)/FPGA.cpp : $(SOURCE)/FPGA.hpp
 $(SOURCE)/Display.cpp : $(SOURCE)/Display.hpp
 	$(TOUCH) $(SOURCE)/Display.cpp
 
-$(SOURCE)/MiniFB.cpp : $(SOURCE)/MiniFB.hpp
+$(SOURCE)/MiniFB.cpp : $(SOURCE)/MiniFB.hpp $(REGS)/regspinctrl.h $(REGS)/regsclkctrl.h $(REGS)/regslcdif.h
 	$(TOUCH) $(SOURCE)/MiniFB.cpp
 
 $(SOURCE)/MiniInput.cpp : $(SOURCE)/MiniInput.hpp
@@ -102,7 +102,7 @@ $(SOURCE)/MiniInput.cpp : $(SOURCE)/MiniInput.hpp
 $(SOURCE)/MiniRegs.cpp : $(SOURCE)/MiniRegs.hpp
 	$(TOUCH) $(SOURCE)/MiniRegs.cpp
 
-$(SOURCE)/MiniSPI.cpp : $(SOURCE)/MiniSPI.hpp $(REGS)/mxs-spi.h $(REGS)/regs-clkctrl.h
+$(SOURCE)/MiniSPI.cpp : $(SOURCE)/MiniSPI.hpp $(REGS)/regsssp.h $(REGS)/regsclkctrl.h
 	$(TOUCH) $(SOURCE)/MiniSPI.cpp
 
 # HEADERS
@@ -128,10 +128,10 @@ $(SOURCE)/Touch.hpp : $(SOURCE)/Configuration.hpp $(SOURCE)/State.hpp $(SOURCE)/
 $(SOURCE)/FPGA.hpp : $(SOURCE)/Configuration.hpp $(SOURCE)/State.hpp $(SOURCE)/Samples.hpp $(SOURCE)/MiniRegs.hpp $(SOURCE)/MiniSPI.hpp
 	$(TOUCH) $(SOURCE)/FPGA.hpp
 
-$(SOURCE)/Display.hpp : $(SOURCE)/Configuration.hpp $(SOURCE)/State.hpp $(SOURCE)/Samples.hpp $(SOURCE)/Measurer.hpp $(SOURCE)/MiniFB.hpp
+$(SOURCE)/Display.hpp : $(SOURCE)/Configuration.hpp $(SOURCE)/State.hpp $(SOURCE)/Samples.hpp $(SOURCE)/Measurer.hpp $(SOURCE)/MiniFB.hpp $(SOURCE)/MiniRegs.hpp
 	$(TOUCH) $(SOURCE)/Display.hpp
 
-$(SOURCE)/MiniFB.hpp :
+$(SOURCE)/MiniFB.hpp : $(SOURCE)/MiniRegs.hpp
 	$(TOUCH) $(SOURCE)/MiniFB.hpp
 
 $(SOURCE)/MiniInput.hpp :
