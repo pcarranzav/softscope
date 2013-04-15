@@ -1,4 +1,7 @@
 #include <MiniFB.hpp>
+#include <regspinctrl.h>
+#include <regsclkctrl.h>
+#include <regslcdif.h>
 #include <fcntl.h>
 #include <linux/fb.h>
 #include <sys/mman.h>
@@ -249,6 +252,36 @@ void MiniFB::addCharacter(char character)
 
 void MiniFB::initLCDIF(void)
 {
-	
+	miniRegs.write(HW_PINCTRL_MUXSEL2_CLR_ADDR, 0x0000FFFF);
+	miniRegs.write(HW_PINCTRL_MUXSEL3_CLR_ADDR, 0x000F3000);
+	miniRegs.write(HW_CLKCTRL_PIX_ADDR, (miniRegs.read(HW_CLKCTRL_PIX_ADDR) & 0xFFFFF000) | 0x00000001);
+	miniRegs.write(HW_CLKCTRL_CLKSEQ_SET_ADDR, 0x00000002);
+	miniRegs.write(HW_LCDIF_CTRL_CLR_ADDR, 0x80000000);
+	while((miniRegs.read(HW_LCDIF_CTRL_ADDR) & 0x80000000) != 0);
+	miniRegs.write(HW_LCDIF_CTRL_CLR_ADDR, 0x40000000);
+	miniRegs.write(HW_LCDIF_CTRL_SET_ADDR, 0x80000000);
+	while((miniRegs.read(HW_LCDIF_CTRL_ADDR) & 0x40000000) == 0);
+	miniRegs.write(HW_LCDIF_CTRL_CLR_ADDR, 0x80000000);
+	while((miniRegs.read(HW_LCDIF_CTRL_ADDR) & 0x80000000) != 0);
+	miniRegs.write(HW_LCDIF_CTRL_CLR_ADDR, 0x40000000);
+	while((miniRegs.read(HW_LCDIF_CTRL_ADDR) & 0x40000000) != 0);
+	miniRegs.write(HW_LCDIF_CTRL_SET_ADDR, 0x00000010);
+	miniRegs.write(HW_LCDIF_CUR_BUF_ADDR, (int)data);
+	miniRegs.write(HW_LCDIF_NEXT_BUF_ADDR, (int)data);
+	miniRegs.write(HW_LCDIF_CTRL_CLR_ADDR, 0x03E0F002);
+	miniRegs.write(HW_LCDIF_CTRL_SET_ADDR, 0x00000300);
+	miniRegs.write(HW_LCDIF_CTRL1_CLR_ADDR, 0x00080000);
+	miniRegs.write(HW_LCDIF_CTRL1_SET_ADDR, 0x00070000);
+	miniRegs.write(HW_LCDIF_CTRL_CLR_ADDR, 0x00000400);
+	miniRegs.write(HW_LCDIF_CTRL_SET_ADDR, 0x000A0800);
+	miniRegs.write(HW_LCDIF_VDCTRL0_CLR_ADDR, 0x20000000);
+	miniRegs.write(HW_LCDIF_TRANSFER_COUNT_ADDR, 0x01E00280);
+	miniRegs.write(HW_LCDIF_VDCTRL0_CLR_ADDR, 0x1F03FFFD);
+	miniRegs.write(HW_LCDIF_VDCTRL0_SET_ADDR, 0x00300002);
+	miniRegs.write(HW_LCDIF_VDCTRL1_ADDR, 0x0000020D);
+	miniRegs.write(HW_LCDIF_VDCTRL2_ADDR, 0x0A000320);
+	miniRegs.write(HW_LCDIF_VDCTRL3_ADDR, 0x0090000D);
+	miniRegs.write(HW_LCDIF_VDCTRL4_ADDR, 0x00040280);
+	miniRegs.write(HW_LCDIF_CTRL_SET_ADDR, 0x00000001);
 }
 
