@@ -2,6 +2,7 @@
 #define MINISPI_HPP
 
 #include <MiniRegs.hpp>
+#include <vector>
 
 class MiniSPI
 {
@@ -10,6 +11,7 @@ class MiniSPI
 
 	public:
 		MiniSPI(MiniRegs& miniRegs);
+		void start(std::vector<int>& cmd);
 };
 
 #endif

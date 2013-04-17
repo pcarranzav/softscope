@@ -45,7 +45,8 @@
 #include "regs.h"
 
 #ifndef REGS_SSP_BASE
-#define REGS_SSP_BASE (REGS_BASE + 0x00010000)
+#define REGS_SSP_BASE (REGS_BASE + 0x00034000)
+
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
