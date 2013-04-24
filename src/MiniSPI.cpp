@@ -18,14 +18,15 @@ MiniSPI::MiniSPI(MiniRegs& miniRegs) : miniRegs(miniRegs)
 	miniRegs.write(HW_PINCTRL_DRIVE3_CLR_ADDR, 0x00000001);
 	miniRegs.write(HW_PINCTRL_DRIVE3_SET_ADDR, 0x00000002);
 	miniRegs.write(HW_PINCTRL_PULL0_CLR_ADDR, 0x001000FF);
-	miniRegs.write(HW_SSP_CTRL0_CLR_ADDR, 0x915CFDFF);
-	miniRegs.write(HW_SSP_CTRL0_SET_ADDR, 0x6EA30200);
-	miniRegs.write(HW_SSP_CMD0_CLR_ADDR, 0xFFEFFFFF);
-	miniRegs.write(HW_SSP_CMD0_SET_ADDR, 0x00100000);
+	miniRegs.write(HW_SSP_CTRL0_CLR_ADDR, 0xF17CFBFF);
+	miniRegs.write(HW_SSP_CTRL0_SET_ADDR, 0x0E830400);
+	miniRegs.write(HW_SSP_CMD0_CLR_ADDR, 0x004FFF00);
+	miniRegs.write(HW_SSP_CMD0_SET_ADDR, 0x00300000);
 	miniRegs.write(HW_SSP_TIMING_ADDR, 0x00010200);
-	miniRegs.write(HW_SSP_CTRL1_CLR_ADDR, 0x30FC1D8C);
-	miniRegs.write(HW_SSP_CTRL1_SET_ADDR, 0xCF03E273);
-	miniRegs.write(HW_CLKCTRL_SSP_ADDR, 0x80000001);
+	miniRegs.write(HW_SSP_CTRL1_CLR_ADDR, 0x5551618C);
+	miniRegs.write(HW_SSP_CTRL1_SET_ADDR, 0xAAA28273);
+	miniRegs.write(HW_CLKCTRL_SSP_ADDR, 0x00000001);
+	miniRegs.write(HW_SSP_CTRL0_SET_ADDR, 0x20000000);
 }
 
 void MiniSPI::start(vector<int>& cmd)
@@ -34,5 +35,9 @@ void MiniSPI::start(vector<int>& cmd)
 	miniRegs.write(HW_SSP_CMD0_CLR_ADDR, (~cmd[1]) & 0x000000FF);
 	miniRegs.write(HW_SSP_CMD0_SET_ADDR, cmd[1]);
 	miniRegs.write(HW_SSP_CTRL0_SET_ADDR, 0x20000000);
+	
+	//leer HW_SSP_STATUS
+	//leer HW_SSP_DEBUG
+	//leer HW_SSP_VERSION
 }
 
